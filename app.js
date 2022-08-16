@@ -44,9 +44,9 @@ const answerDisplay = document.querySelector('#answer')
     answers: [
       {
         text:"Pizza",
-        image:"https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=781&q=80",
-        alt:"Photo of a whole hawaiiwan pizza",
-        credit: "Chad Montano"
+        image:"https://images.unsplash.com/photo-1590947132387-155cc02f3212?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        alt:"Photo of a whole pizza with mushrooms and herbs",
+        credit: "Vitalii Chernopyskyi"
 
       },
       {
@@ -65,16 +65,16 @@ const answerDisplay = document.querySelector('#answer')
       },
       {
         text:"Pasta",
-        image:"https://images.unsplash.com/photo-1522666257812-173fdc2d11fe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80",
+        image:"https://images.unsplash.com/photo-1551183053-bf91a1d81141?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1232&q=80",
         alt:"Photo of a plate of pasta",
-        credit: "Sestrjevitovschii Ina"
+        credit: "Amirali mirhashemian"
 
       },
     ]
   },
 
   {
-   d: 2,
+   id: 2,
     text: "Pick your ideal home:",
     answers: [
       {
@@ -93,16 +93,16 @@ const answerDisplay = document.querySelector('#answer')
       },
       {
         text:"Mediterranean",
-        image:"hhttps://images.unsplash.com/photo-1416331108676-a22ccb276e35?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1167&q=80",
+        image:"https://images.unsplash.com/photo-1416331108676-a22ccb276e35?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1167&q=80",
         alt:"Photo of a Mediterranean house with a pool ",
         credit:"Vita Vilcina"
 
       },
       {
         text:"Cabin",
-        image:"https://images.unsplash.com/photo-1611602132416-da2045990f76?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-        alt:"Photo of a blue cabin in the woods in the day time",
-        credit: "Meritt Thomas"
+        image:"https://images.unsplash.com/photo-1559767949-0faa5c7e9992?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        alt:"Photo of a lake and a cabin in the woods in the day time",
+        credit: "Stephen Wheeler"
 
       }
 
@@ -110,6 +110,41 @@ const answerDisplay = document.querySelector('#answer')
   }
 
 ]
+
+const answers = [ {
+
+   combination: ["New York", "Pizza", "Victorian"],
+   text: "Blue Cheese",
+   image: "https://images.unsplash.com/photo-1452195100486-9cc805987862?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80",
+   alt: "Blue Cheese"
+},
+
+{
+   combination: ["Amsterdam", "Sandwich", "Modern"],
+   text: "Mozzarella",
+   image: "https://images.unsplash.com/photo-1645087177483-f760329f470f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+   alt: "Mozzarella"
+},
+
+{
+   combination: ["London", "Pot Roast", "Mediterranean"],
+   text: "Brie",
+   image: "https://images.unsplash.com/photo-1634487359989-3e90c9432133?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80",
+   alt: "Brie"
+},
+
+
+{
+   combination: ["Tokyo", "Pasta", "Cabin"],
+   text: "Cheddar",
+   image: "https://images.unsplash.com/photo-1589881133825-bbb3b9471b1b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80",
+   alt: "Cheddar"
+}
+ //a default answer will be provided to account for the lack of different combinations
+]
+
+const unansweredQuestions = []
+const chosenAnswers = []
 
 const populateQuestions =  () => {
   questions.forEach(question => {
@@ -125,16 +160,33 @@ const populateQuestions =  () => {
      answersBlock.id = question.id + "-questions"
      answersBlock.classList.add('answer-options')
 
+     unansweredQuestions.push(question.id)
+
      question.answers.forEach(answer =>{
        const answerBlock = document.createElement('div')
        answerBlock.classList.add('answer-block')
-       answerBlock.addEventListener('click', handleClick )
+       answerBlock.addEventListener('click', () => handleClick(question.id, answer.text))
        const answerImage = document.createElement('img')
        answerImage.setAttribute('src', answer.image)
-       answerImage.setAttribute('src', answer.alt)
+       answerImage.setAttribute('alt', answer.alt)
 
+       const answerTitle = document.createElement('h3')
+       answerTitle.textContent = answer.text
 
-        answerBlock.append(answerImage)
+       const answerInfo = document.createElement('p')
+       const imageLink = document.createElement('a')
+       imageLink.setAttribute('href', answer.credit)
+       imageLink.textContent = answer.credit
+       const sourceLink = document.createElement('a')
+       sourceLink.textContent = 'Unsplash'
+       sourceLink.setAttribute('src', 'https://unsplash.com/')
+
+        answerInfo.append(imageLink, 'to', sourceLink)
+
+        answerBlock.append(answerImage, answerTitle, answerInfo)
+
+        answersBlock.append(answerBlock)
+
   })
         questionDisplay.append(answersBlock)
   })
@@ -144,6 +196,74 @@ const populateQuestions =  () => {
 
 populateQuestions()
 
-const handleClick = () =>  {
-  console.log('clicked')
+const handleClick = (questionId, chosenAnswer) =>  {
+  if (unansweredQuestions.includes(questionId))
+  chosenAnswers.push(chosenAnswer)
+  const itemToRemove = unansweredQuestions.indexOf(questionId)
+
+  if (itemToRemove > -1 ) {
+    unansweredQuestions.splice(itemToRemove, 1)
+  }
+
+  console.log(chosenAnswer)
+  console.log(unansweredQuestions)
+
+  disableQuestionBlock(questionId, chosenAnswer)
+  const lowestQuestionId = Math.min(...unansweredQuestions)
+   location.href = '#' + lowestQuestionId
+
+
+  if (!unansweredQuestions.length) {
+
+    showAnswer()
+  }
 }
+
+ const showAnswer = () => {
+
+    let result
+    answers.forEach(answer => {
+      if (
+        chosenAnswers.includes(answer.combination[0]),
+        chosenAnswers.includes(answer.combination[1]),
+        chosenAnswers.includes(answer.combination[2])
+      )
+      {
+        result = answer
+        return
+      } else if (!result) {
+       //defaults to the first answer object
+      result = answers[0]
+      }
+    })
+
+
+
+  const answerBlock = document.createElement('div')
+  answerBlock.classList.add('result-block')
+  const answerTitle = document.createElement('h3')
+  answerTitle.textContent = result.text
+  const answerImage = document.createElement('img')
+  answerImage.setAttribute('src', result.image)
+  answerImage.setAttribute('alt', result.alt)
+
+
+  answerBlock.append(answerTitle, answerImage)
+
+  answerDisplay.append(answerBlock)
+
+  const allAnswerBlocks = document.querySelectorAll('.answer-block')
+   Array.from(allAnswerBlocks).forEach(answerBlock => answerBlock.replaceWith(answerBlock))
+
+ }
+
+ const disableQuestionBlock = (questionId, chosenAnswer) => {
+  const currentQuestionBlock = document.getElementById(questionId + "-questions")
+
+    Array.from(currentQuestionBlock.children).forEach(block => {
+      if (block.children.item(1).innerText!= chosenAnswer) {
+        block.style.opacity = "50%"
+      }
+    })
+
+ }
