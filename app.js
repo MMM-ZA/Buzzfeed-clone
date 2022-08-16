@@ -4,7 +4,7 @@ const answerDisplay = document.querySelector('#answer')
  const questions = [
   {
     id: 0,
-    text: "Pick a vaction destination:",
+    text: "Choose a vaction destination:",
     answers: [
       {
         text:"New York",
@@ -40,7 +40,7 @@ const answerDisplay = document.querySelector('#answer')
   },
   {
     id: 1,
-    text: "Pick some food:",
+    text: "Choose a meal:",
     answers: [
       {
         text:"Pizza",
@@ -57,7 +57,7 @@ const answerDisplay = document.querySelector('#answer')
 
       },
       {
-        text:"Post Roast",
+        text:"Pot Roast",
         image:"https://images.unsplash.com/photo-1432139555190-58524dae6a55?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80",
         alt:"Photo of a roasted pork chop with a side of veggies",
         credit: "Alex Munsell"
@@ -75,7 +75,7 @@ const answerDisplay = document.querySelector('#answer')
 
   {
    id: 2,
-    text: "Pick your ideal home:",
+    text: "Choose your ideal home:",
     answers: [
       {
         text:"Victorian",
@@ -175,13 +175,13 @@ const populateQuestions =  () => {
 
        const answerInfo = document.createElement('p')
        const imageLink = document.createElement('a')
-       imageLink.setAttribute('href', answer.credit)
+       imageLink.setAttribute('href', answer.image)
        imageLink.textContent = answer.credit
        const sourceLink = document.createElement('a')
        sourceLink.textContent = 'Unsplash'
        sourceLink.setAttribute('src', 'https://unsplash.com/')
 
-        answerInfo.append(imageLink, 'to', sourceLink)
+        answerInfo.append(imageLink, 'from', sourceLink)
 
         answerBlock.append(answerImage, answerTitle, answerInfo)
 
@@ -191,8 +191,6 @@ const populateQuestions =  () => {
         questionDisplay.append(answersBlock)
   })
 }
-
-
 
 populateQuestions()
 
@@ -214,7 +212,7 @@ const handleClick = (questionId, chosenAnswer) =>  {
 
 
   if (!unansweredQuestions.length) {
-
+    location.href = "#answer"
     showAnswer()
   }
 }
@@ -236,7 +234,6 @@ const handleClick = (questionId, chosenAnswer) =>  {
       result = answers[0]
       }
     })
-
 
 
   const answerBlock = document.createElement('div')
@@ -261,7 +258,7 @@ const handleClick = (questionId, chosenAnswer) =>  {
   const currentQuestionBlock = document.getElementById(questionId + "-questions")
 
     Array.from(currentQuestionBlock.children).forEach(block => {
-      if (block.children.item(1).innerText!= chosenAnswer) {
+      if (block.children.item(1).innerText!== chosenAnswer) {
         block.style.opacity = "50%"
       }
     })
