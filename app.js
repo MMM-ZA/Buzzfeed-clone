@@ -181,7 +181,7 @@ const populateQuestions =  () => {
        sourceLink.textContent = 'Unsplash'
        sourceLink.setAttribute('src', 'https://unsplash.com/')
 
-        answerInfo.append(imageLink, 'from', sourceLink)
+        answerInfo.append(imageLink,  'from' , sourceLink)
 
         answerBlock.append(answerImage, answerTitle, answerInfo)
 

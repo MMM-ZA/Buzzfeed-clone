@@ -13,11 +13,12 @@ section{
 }
 .section-heading p {
   color: #a4133c;
+  text-align: center;
 }
 h1 {
  font-size: 2.5rem;
  line-height: 1.05;
- text-align: left;
+ text-align: center;
  color: #a4133c
 }
 h2 {
@@ -67,21 +68,23 @@ p{
 
 .result-block {
   width: 800px;
+  background-color:#ffb3c1;
+  display:flex;
+  align-items: center;
+  padding:20px;
+  justify-content: space-evenly;
   border-radius: 5px;
-  background-color: #a4133c;
-  background-image: linear-gradient(43deg, #a4133c 0%, #ff4d6d 31%, #ff8fa3 63%);
-
 }
 .result-block img {
-  width: 400px;
-  height: 350px;
-  /* margin: 16px 5px 16px 5px; */
-  justify-content: center;
-
+  width: 200px;
+  height: 180px;
+  object-position: center;
+  object-fit: cover;
+  margin-right: 10px;
 }
 
 .result-block h3 {
   text-align: center;
   font-size: 24px;
-
+  color: #590d22;
 }
